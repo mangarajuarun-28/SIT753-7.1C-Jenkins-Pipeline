@@ -1,36 +1,41 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     triggers {
         pollSCM('H/2 * * * *')
     }
 
     stages {
+
         stage('Build') {
             steps {
-                echo 'Task: Build, compile and package the application.'
+                echo 'Task: Build the code using a build automation tool to compile and package the application.'
                 echo 'Tool: Maven'
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Task: Run unit tests and integration tests.'
-                echo 'Tools: JUnit and Selenium'
+                echo 'Task: Run unit tests and integration tests to check that the application works correctly.'
+                echo 'Tool: JUnit and Selenium'
             }
         }
 
         stage('Code Analysis') {
             steps {
-                echo 'Task: Analyse source code and check code quality.'
+                echo 'Task: Analyse the source code and check code quality and industry standards.'
                 echo 'Tool: SonarQube'
             }
         }
 
         stage('Security Scan') {
             steps {
-                echo 'Task: Scan the source code for security vulnerabilities.'
-                echo 'Tool: Snyk'
+                echo 'Task: Scan the application for security vulnerabilities.'
+                echo 'Tool: OWASP Dependency-Check'
             }
         }
 
